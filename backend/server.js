@@ -7,6 +7,15 @@ dotenv.config();
 
 const app = express();
 
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+    res.json({ 
+      status: 'OK', 
+      message: 'Server is running',
+      timestamp: new Date().toISOString()
+    });
+  });
+
 // Middleware
 app.use(cors());
 app.use(express.json());
