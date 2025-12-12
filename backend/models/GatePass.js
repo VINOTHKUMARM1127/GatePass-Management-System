@@ -43,6 +43,7 @@ const gatePassSchema = new mongoose.Schema({
       'pending_principal',
       'rejected_principal',
       'approved',
+      'approved_not_exited',
       'exit_confirmed'
     ],
     default: 'pending_hod'

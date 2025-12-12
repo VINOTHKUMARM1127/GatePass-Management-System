@@ -60,31 +60,31 @@ const ViewerPanel = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">🚪 Gate Pass Status Checker</h1>
-          <p className="text-gray-600">Enter a Gate Pass ID to view its status</p>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
+        <div className="text-center mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">🚪 Gate Pass Status Checker</h1>
+          <p className="text-sm sm:text-base text-gray-600">Enter a Gate Pass ID to view its status</p>
           <Link
-            to="/login"
-            className="text-blue-600 hover:text-blue-700 font-medium mt-4 inline-block"
+            to="/"
+            className="text-blue-600 hover:text-blue-700 font-medium mt-3 sm:mt-4 inline-block text-sm sm:text-base"
           >
             Home →
           </Link>
         </div>
 
-        <div className="bg-white shadow-lg rounded-lg p-6 mb-6">
-          <form onSubmit={handleSearch} className="flex space-x-4">
+        <div className="bg-white shadow-lg rounded-lg p-4 sm:p-6 mb-4 sm:mb-6">
+          <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <input
               type="text"
               value={gatePassId}
               onChange={(e) => setGatePassId(e.target.value.toUpperCase())}
               placeholder="Enter Gate Pass ID (e.g., GP123ABC)"
-              className="flex-1 px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-lg"
+              className="flex-1 px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-base sm:text-lg"
             />
             <button
               type="submit"
               disabled={loading}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-md font-medium transition disabled:opacity-50"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-md font-medium transition disabled:opacity-50 text-sm sm:text-base"
             >
               {loading ? 'Searching...' : 'Search'}
             </button>
@@ -92,13 +92,13 @@ const ViewerPanel = () => {
         </div>
 
         {gatePass && (
-          <div className="bg-white shadow-lg rounded-lg p-6">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-gray-900">Gate Pass Details</h2>
+          <div className="bg-white shadow-lg rounded-lg p-4 sm:p-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 gap-2">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Gate Pass Details</h2>
               {getStatusBadge(gatePass.status)}
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
               <div>
                 <p className="text-sm text-gray-600 mb-1">Gate Pass ID</p>
                 <p className="text-lg font-semibold text-blue-600">{gatePass.gatePassId}</p>

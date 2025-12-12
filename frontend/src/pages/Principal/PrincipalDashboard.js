@@ -81,6 +81,7 @@ const PrincipalDashboard = () => {
       pending_principal: { color: 'bg-blue-100 text-blue-800', text: 'Pending (Principal)' },
       rejected_principal: { color: 'bg-red-100 text-red-800', text: 'Rejected (Principal)' },
       approved: { color: 'bg-green-100 text-green-800', text: 'Approved' },
+      approved_not_exited: { color: 'bg-orange-100 text-orange-800', text: 'Approved (Not Exited)' },
       exit_confirmed: { color: 'bg-purple-100 text-purple-800', text: 'Exit Confirmed' }
     };
     const config = statusConfig[status] || { color: 'bg-gray-100 text-gray-800', text: status };
@@ -107,19 +108,19 @@ const PrincipalDashboard = () => {
   return (
     <div>
       <Navbar />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold text-gray-900">Principal Dashboard</h1>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 gap-3 sm:gap-0">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Principal Dashboard</h1>
           <Link
             to="/principal/manage"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-medium transition"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-4 py-2 rounded-md text-sm sm:text-base font-medium transition w-full sm:w-auto text-center"
           >
             Manage System
           </Link>
         </div>
 
         {stats && (
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 mb-4 sm:mb-6">
             <div className="bg-white p-4 rounded-lg shadow">
               <p className="text-sm text-gray-600">Total</p>
               <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
@@ -143,8 +144,8 @@ const PrincipalDashboard = () => {
           </div>
         )}
 
-        <div className="mb-4 border-b border-gray-200">
-          <nav className="-mb-px flex space-x-8">
+        <div className="mb-4 border-b border-gray-200 overflow-x-auto">
+          <nav className="-mb-px flex space-x-4 sm:space-x-8 min-w-max">
             <button
               onClick={() => setActiveTab('pending')}
               className={`py-4 px-1 border-b-2 font-medium text-sm ${
@@ -192,17 +193,17 @@ const PrincipalDashboard = () => {
                       </p>
                     </div>
                     <div className="mt-2">
-                      <div className="flex items-start space-x-4">
+                      <div className="flex flex-col sm:flex-row items-start space-y-3 sm:space-y-0 sm:space-x-4">
                         {request.photo && (
-                          <div className="flex-shrink-0">
+                          <div className="flex-shrink-0 w-full sm:w-auto">
                             <img 
                               src={request.photo.startsWith('http') ? request.photo : `${process.env.REACT_APP_API_URL || 'http://localhost:5000'}${request.photo}`} 
                               alt="Student" 
-                              className="w-24 h-24 object-cover rounded-md border border-gray-300"
+                              className="w-full sm:w-24 h-48 sm:h-24 object-cover rounded-md border border-gray-300"
                             />
                           </div>
                         )}
-                        <div className="flex-1">
+                        <div className="flex-1 w-full">
                           <p className="text-sm font-medium text-gray-900">
                             Student: {request.student?.name || request.studentName}
                           </p>

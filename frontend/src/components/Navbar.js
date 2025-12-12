@@ -29,21 +29,21 @@ const Navbar = () => {
   return (
     <nav className="bg-blue-600 text-white shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
+        <div className="flex justify-between h-14 sm:h-16">
           <div className="flex items-center">
-            <Link to={getDashboardPath()} className="text-xl font-bold">
+            <Link to={getDashboardPath()} className="text-lg sm:text-xl font-bold">
               🚪 Gate Pass System
             </Link>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-4">
             {user && (
               <>
-                <span className="text-sm">
-                  {user.name} ({user.role.toUpperCase()})
+                <span className="text-xs sm:text-sm truncate max-w-[100px] sm:max-w-none">
+                  {user.name} <span className="hidden sm:inline">({user.role.toUpperCase()})</span>
                 </span>
                 <button
                   onClick={handleLogout}
-                  className="bg-blue-700 hover:bg-blue-800 px-4 py-2 rounded-md text-sm font-medium transition"
+                  className="bg-blue-700 hover:bg-blue-800 px-2 sm:px-4 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-medium transition whitespace-nowrap"
                 >
                   Logout
                 </button>

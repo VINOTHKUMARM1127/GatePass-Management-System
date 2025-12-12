@@ -52,6 +52,7 @@ const HODDashboard = () => {
       pending_principal: { color: 'bg-blue-100 text-blue-800', text: 'Pending (Principal)' },
       rejected_principal: { color: 'bg-red-100 text-red-800', text: 'Rejected (Principal)' },
       approved: { color: 'bg-green-100 text-green-800', text: 'Approved' },
+      approved_not_exited: { color: 'bg-orange-100 text-orange-800', text: 'Approved (Not Exited)' },
       exit_confirmed: { color: 'bg-purple-100 text-purple-800', text: 'Exit Confirmed' }
     };
     const config = statusConfig[status] || { color: 'bg-gray-100 text-gray-800', text: status };
@@ -78,11 +79,11 @@ const HODDashboard = () => {
   return (
     <div>
       <Navbar />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-6">HOD Dashboard</h1>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">HOD Dashboard</h1>
 
-        <div className="mb-4 border-b border-gray-200">
-          <nav className="-mb-px flex space-x-8">
+        <div className="mb-4 border-b border-gray-200 overflow-x-auto">
+          <nav className="-mb-px flex space-x-4 sm:space-x-8 min-w-max">
             <button
               onClick={() => setActiveTab('pending')}
               className={`py-4 px-1 border-b-2 font-medium text-sm ${
@@ -130,17 +131,17 @@ const HODDashboard = () => {
                       </p>
                     </div>
                     <div className="mt-2">
-                      <div className="flex items-start space-x-4">
+                      <div className="flex flex-col sm:flex-row items-start space-y-3 sm:space-y-0 sm:space-x-4">
                         {request.photo && (
-                          <div className="flex-shrink-0">
+                          <div className="flex-shrink-0 w-full sm:w-auto">
                             <img 
                               src={request.photo.startsWith('http') ? request.photo : `${process.env.REACT_APP_API_URL || 'http://localhost:5000'}${request.photo}`} 
                               alt="Student" 
-                              className="w-24 h-24 object-cover rounded-md border border-gray-300"
+                              className="w-full sm:w-24 h-48 sm:h-24 object-cover rounded-md border border-gray-300"
                             />
                           </div>
                         )}
-                        <div className="flex-1">
+                        <div className="flex-1 w-full">
                           <p className="text-sm font-medium text-gray-900">
                             Student: {request.student?.name || request.studentName}
                           </p>

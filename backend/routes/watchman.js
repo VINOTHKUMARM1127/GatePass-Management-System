@@ -67,23 +67,63 @@ router.put('/confirm-exit/:id', auth, authorize('watchman'), async (req, res) =>
   }
 });
 
-// @route   GET /api/watchman/recent
-// @desc    Get recently verified gate passes
+// @route   GET /api/watchman/today
+// @desc    Get today's approved gate passes (for watchman to verify exits)
 // @access  Private (Watchman)
-router.get('/recent', auth, authorize('watchman'), async (req, res) => {
+router.get('/today', auth, authorize('watchman'), async (req, res) => {
   try {
+    // Get today's date range (start and end of today)
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    // Find approved gate passes that were approved today
     const gatePasses = await GatePass.find({
-      status: 'exit_confirmed',
-      'watchmanVerification.verifiedBy': req.user.id
+      status: { $in: ['approved', 'exit_confirmed'] },
+      'principalApproval.approvedAt': {
+        $gte: today,
+        $lt: tomorrow
+      }
     })
       .populate('student', 'name email studentId')
-      .sort({ 'watchmanVerification.verifiedAt': -1 })
-      .limit(50);
+      .populate('hodApproval.approvedBy', 'name email')
+      .populate('principalApproval.approvedBy', 'name email')
+      .sort({ 'principalApproval.approvedAt': -1 });
 
     res.json(gatePasses);
   } catch (error) {
-    console.error('Get recent error:', error);
-    res.status(500).json({ message: 'Server error fetching recent exits' });
+    console.error('Get today approved error:', error);
+    res.status(500).json({ message: 'Server error fetching today\'s approved gate passes' });
+  }
+});
+
+// @route   PUT /api/watchman/update-not-exited
+// @desc    Update approved gate passes from previous days to "approved_not_exited" status
+// @access  Private (Watchman) - Called on page load
+router.put('/update-not-exited', auth, authorize('watchman'), async (req, res) => {
+  try {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Update approved gate passes from previous days that haven't been exited
+    const result = await GatePass.updateMany(
+      {
+        status: 'approved',
+        'principalApproval.approvedAt': { $lt: today }
+      },
+      {
+        $set: { status: 'approved_not_exited' }
+      }
+    );
+
+    res.json({ 
+      message: 'Updated gate passes status',
+      updated: result.modifiedCount
+    });
+  } catch (error) {
+    console.error('Update not exited error:', error);
+    res.status(500).json({ message: 'Server error updating gate passes' });
   }
 });
 

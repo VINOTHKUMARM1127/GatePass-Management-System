@@ -274,19 +274,19 @@ const PrincipalManage = () => {
   return (
     <div>
       <Navbar />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold text-gray-900">System Management</h1>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 gap-3">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">System Management</h1>
           <Link
             to="/principal"
-            className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md font-medium transition"
+            className="bg-gray-600 hover:bg-gray-700 text-white px-3 sm:px-4 py-2 rounded-md text-sm sm:text-base font-medium transition w-full sm:w-auto text-center"
           >
             ← Back to Dashboard
           </Link>
         </div>
 
-        <div className="mb-4 border-b border-gray-200">
-          <nav className="-mb-px flex space-x-8">
+        <div className="mb-4 border-b border-gray-200 overflow-x-auto">
+          <nav className="-mb-px flex space-x-4 sm:space-x-8 min-w-max">
             <button
               onClick={() => setActiveTab('profile')}
               className={`py-4 px-1 border-b-2 font-medium text-sm ${

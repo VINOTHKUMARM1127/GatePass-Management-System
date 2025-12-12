@@ -3,8 +3,10 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from './context/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
+import PublicNavbar from './components/PublicNavbar';
 
 // Pages
+import Home from './pages/Home';
 import Login from './pages/Login';
 import StudentRequestForm from './pages/Student/StudentRequestForm';
 import HODDashboard from './pages/HOD/HODDashboard';
@@ -20,10 +22,51 @@ function App() {
         <div className="min-h-screen bg-gray-50">
           <Toaster position="top-right" />
           <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/request" element={<StudentRequestForm />} />
-            <Route path="/viewer" element={<ViewerPanel />} />
+            {/* Public routes with navbar */}
+            <Route 
+              path="/" 
+              element={
+                <>
+                  <PublicNavbar />
+                  <Home />
+                </>
+              } 
+            />
+            <Route 
+              path="/login" 
+              element={
+                <>
+                  <PublicNavbar />
+                  <Login />
+                </>
+              } 
+            />
             
+            {/* Public routes - no login required */}
+            <Route 
+              path="/submit" 
+              element={
+                <>
+                  <PublicNavbar />
+                  <StudentRequestForm />
+                </>
+              } 
+            />
+            <Route 
+              path="/status" 
+              element={
+                <>
+                  <PublicNavbar />
+                  <ViewerPanel />
+                </>
+              } 
+            />
+            
+            {/* Legacy routes - redirect to new routes */}
+            <Route path="/request" element={<Navigate to="/submit" replace />} />
+            <Route path="/viewer" element={<Navigate to="/status" replace />} />
+            
+            {/* Private routes with role-based access */}
             <Route
               path="/hod"
               element={
@@ -58,8 +101,6 @@ function App() {
                 </PrivateRoute>
               }
             />
-            
-            <Route path="/" element={<Navigate to="/login" replace />} />
           </Routes>
         </div>
       </Router>

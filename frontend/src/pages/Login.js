@@ -42,13 +42,13 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-xl">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-6 sm:space-y-8 bg-white p-6 sm:p-8 rounded-lg shadow-xl">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-4 sm:mt-6 text-center text-2xl sm:text-3xl font-extrabold text-gray-900">
             Sign in to your account
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          <p className="mt-2 text-center text-xs sm:text-sm text-gray-600">
             Gate Pass Management System
           </p>
         </div>
@@ -100,16 +100,16 @@ const Login = () => {
           <div className="text-center space-y-2">
             <div>
               <Link
-                to="/request"
-                className="font-medium text-blue-600 hover:text-blue-500"
+                to="/submit"
+                className="font-medium text-blue-600 hover:text-blue-500 text-sm sm:text-base"
               >
                 Submit Gate Pass Request
               </Link>
             </div>
             <div>
               <Link
-                to="/viewer"
-                className="font-medium text-gray-600 hover:text-gray-500"
+                to="/status"
+                className="font-medium text-gray-600 hover:text-gray-500 text-sm sm:text-base"
               >
                 View Gate Pass Status
               </Link>

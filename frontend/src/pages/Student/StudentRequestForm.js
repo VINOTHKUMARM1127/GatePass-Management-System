@@ -24,10 +24,11 @@ const StudentRequestForm = () => {
 
   const fetchDepartments = async () => {
     try {
-      const response = await axios.get('/api/admin/principal/departments');
+      const response = await axios.get('/api/admin/public/departments');
       setDepartments(response.data);
     } catch (error) {
       console.error('Failed to fetch departments');
+      toast.error('Failed to load departments.');
     }
   };
 
@@ -114,13 +115,13 @@ const StudentRequestForm = () => {
 
           <div className="space-y-3">
             <Link
-              to={`/viewer?id=${gatePassId}`}
+              to={`/status?id=${gatePassId}`}
               className="block w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition"
             >
               Check Status Now
             </Link>
             <Link
-              to="/request"
+              to="/submit"
               className="block w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-md transition"
               onClick={() => {
                 setGatePassId(null);
@@ -138,7 +139,7 @@ const StudentRequestForm = () => {
               Submit Another Request
             </Link>
             <Link
-              to="/viewer"
+              to="/status"
               className="block text-sm text-blue-600 hover:text-blue-700"
             >
               Go to Status Checker
@@ -152,21 +153,21 @@ const StudentRequestForm = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-6">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Gate Pass Request</h1>
-          <p className="text-gray-600">Submit your request to leave campus</p>
-          <div className="mt-4 space-x-4">
-            <Link to="/login" className="text-sm text-blue-600 hover:text-blue-700">
-              Staff Login
+        <div className="text-center mb-4 sm:mb-6">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Gate Pass Request</h1>
+          <p className="text-sm sm:text-base text-gray-600">Submit your request to leave campus</p>
+          <div className="mt-3 sm:mt-4 flex flex-wrap justify-center gap-2 sm:gap-4 text-xs sm:text-sm">
+            <Link to="/" className="text-blue-600 hover:text-blue-700">
+              Home
             </Link>
             <span className="text-gray-400">|</span>
-            <Link to="/viewer" className="text-sm text-blue-600 hover:text-blue-700">
+            <Link to="/status" className="text-blue-600 hover:text-blue-700">
               Check Status
             </Link>
           </div>
         </div>
         
-        <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-6 space-y-6">
+        <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-4 sm:p-6 space-y-4 sm:space-y-6">
           <div className="border-b pb-4">
             <h3 className="text-lg font-medium text-gray-900 mb-4">Student Information</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -305,7 +306,7 @@ const StudentRequestForm = () => {
               {loading ? 'Submitting...' : 'Submit Request'}
             </button>
             <Link
-              to="/viewer"
+              to="/status"
               className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-md transition text-center"
             >
               Check Status

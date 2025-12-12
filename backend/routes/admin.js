@@ -288,7 +288,7 @@ router.get('/principal/stats', auth, authorize('principal'), async (req, res) =>
   try {
     const total = await GatePass.countDocuments();
     const pending = await GatePass.countDocuments({ status: 'pending_principal' });
-    const approved = await GatePass.countDocuments({ status: 'approved' });
+    const approved = await GatePass.countDocuments({ status: { $in: ['approved', 'approved_not_exited'] } });
     const rejected = await GatePass.countDocuments({ 
       status: { $in: ['rejected_hod', 'rejected_principal'] }
     });
@@ -321,6 +321,22 @@ router.get('/principal/stats', auth, authorize('principal'), async (req, res) =>
   } catch (error) {
     console.error('Get stats error:', error);
     res.status(500).json({ message: 'Server error fetching statistics' });
+  }
+});
+
+// @route   GET /api/admin/public/departments
+// @desc    Get all active departments (Public - for student gate pass form)
+// @access  Public
+router.get('/public/departments', async (req, res) => {
+  try {
+    const departments = await Department.find({ isActive: true })
+      .select('name') // Only return name for public access
+      .sort({ name: 1 });
+
+    res.json(departments);
+  } catch (error) {
+    console.error('Get public departments error:', error);
+    res.status(500).json({ message: 'Server error fetching departments' });
   }
 });
 
