@@ -169,3 +169,4 @@ If images don't display:
 - No database migration needed
 - Local `uploads` folder can be deleted (not used anymore)
 
+

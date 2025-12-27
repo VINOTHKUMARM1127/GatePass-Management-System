@@ -56,3 +56,4 @@ router.get('/:gatePassId', async (req, res) => {
 
 module.exports = router;
 
+

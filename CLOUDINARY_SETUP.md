@@ -137,3 +137,4 @@ For production with high traffic, consider upgrading to a paid plan.
 - ✅ URLs are secure (HTTPS)
 - ⚠️ Keep your API Secret secure - never expose it in client-side code
 
+
